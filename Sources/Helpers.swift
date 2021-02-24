@@ -20,13 +20,17 @@ public extension Dictionary where Key: ExpressibleByStringLiteral {
     /// - Returns: Returns the parameters in using URL-enconding, for example ["username": "Michael", "age": 20] will become "username=Michael&age=20".
     /// - Throws: Returns an error if it wasn't able to encode the dictionary.
     func urlEncodedString() throws -> String {
-
         let pairs = try reduce([]) { current, keyValuePair -> [String] in
+            if let values = keyValuePair.value as? [Any] {
+                let encodedValues = values
+                    .compactMap { "\($0)".addingPercentEncoding(withAllowedCharacters: .urlQueryParametersAllowed) }
+                    .map { "\(keyValuePair.key)[]=\($0)" }
+                return current + encodedValues
+            }
             if let encodedValue = "\(keyValuePair.value)".addingPercentEncoding(withAllowedCharacters: .urlQueryParametersAllowed) {
                 return current + ["\(keyValuePair.key)=\(encodedValue)"]
-            } else {
-                throw NSError(domain: Networking.domain, code: 0, userInfo: [NSLocalizedDescriptionKey: "Couldn't encode \(keyValuePair.value)"])
             }
+            throw NSError(domain: Networking.domain, code: 0, userInfo: [NSLocalizedDescriptionKey: "Couldn't encode \(keyValuePair.value)"])
         }
 
         let converted = pairs.joined(separator: "&")
