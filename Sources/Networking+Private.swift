@@ -366,7 +366,7 @@ extension Networking {
             print(" ")
 
             if let request = request, let url = request.url {
-                print("URL: \(url.absoluteString)")
+                print("\(request.httpMethod ?? "") - URL: \(url.absoluteString)")
                 print(" ")
             }
 
