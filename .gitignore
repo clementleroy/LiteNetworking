@@ -33,3 +33,4 @@ Networking.framework.zip
 # CocoaPods
 Pods
 *.lock
+/.swiftpm
