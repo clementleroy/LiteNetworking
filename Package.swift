@@ -8,7 +8,7 @@ let package = Package(
         .library(name: "Networking", targets: ["Networking"])
     ],
     dependencies: [
-        .package(url: "https://github.com/ReactiveX/RxSwift", from: "5.0.0")
+        .package(url: "https://github.com/ReactiveX/RxSwift", from: "6.0.0")
     ],
     targets: [
         .target(
