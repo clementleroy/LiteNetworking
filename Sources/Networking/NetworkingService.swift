@@ -82,7 +82,7 @@ public extension NetworkingService {
                                          keypath: String? = nil) -> Single<T> {
         return get(route, params: params)
             .map { json -> T in try NetworkingParser().toModel(json, keypath: keypath) }
-            .observeOn(MainScheduler.asyncInstance)
+            .observe(on: MainScheduler.asyncInstance)
     }
     
     func post<T: NetworkingJSONDecodable>(_ route: String,

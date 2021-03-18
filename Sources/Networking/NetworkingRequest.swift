@@ -39,10 +39,10 @@ public class NetworkingRequest: NSObject {
                 }
                 return data
             }
-            .catchError { error  in
+            .catch { error  in
                 .error(NetworkingError(error: error))
             }
-            .observeOn(MainScheduler.asyncInstance)
+            .observe(on: MainScheduler.asyncInstance)
             .map { data -> (Data?, Progress) in
                 return (data, Progress())
             }
@@ -53,7 +53,7 @@ public class NetworkingRequest: NSObject {
             }
         
         return Observable.merge(callObservable, progressObservable)
-            .observeOn(MainScheduler.asyncInstance)
+            .observe(on: MainScheduler.asyncInstance)
     }
     
     public func observable() -> Single<Data> {
@@ -78,10 +78,10 @@ public class NetworkingRequest: NSObject {
             }
             .take(1)
             .asSingle()
-            .catchError { error -> Single<Data> in
+            .catch { error -> Single<Data> in
                 Single.error(NetworkingError(error: error))
             }
-            .observeOn(MainScheduler.asyncInstance)
+            .observe(on: MainScheduler.asyncInstance)
     }
     
     private func getURLWithParams() -> String {

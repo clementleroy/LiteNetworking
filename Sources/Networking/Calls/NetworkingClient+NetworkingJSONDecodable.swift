@@ -16,7 +16,7 @@ public extension NetworkingClient {
             .map { json -> T in
                 try NetworkingParser().toModel(json, keypath: keypath)
             }
-            .observeOn(MainScheduler.asyncInstance)
+            .observe(on: MainScheduler.asyncInstance)
     }
     
     // Array version
@@ -28,7 +28,7 @@ public extension NetworkingClient {
             .map { json -> [T] in
                 try NetworkingParser().toModels(json, keypath: keypath)
             }
-            .observeOn(MainScheduler.asyncInstance)
+            .observe(on: MainScheduler.asyncInstance)
     }
     
     func post<T: NetworkingJSONDecodable>(_ route: String,
@@ -38,7 +38,7 @@ public extension NetworkingClient {
             .map { json -> T in
                 try NetworkingParser().toModel(json, keypath: keypath)
             }
-            .observeOn(MainScheduler.asyncInstance)
+            .observe(on: MainScheduler.asyncInstance)
     }
     
     func put<T: NetworkingJSONDecodable>(_ route: String,
@@ -48,7 +48,7 @@ public extension NetworkingClient {
             .map { json -> T in
                 try NetworkingParser().toModel(json, keypath: keypath)
             }
-            .observeOn(MainScheduler.asyncInstance)
+            .observe(on: MainScheduler.asyncInstance)
     }
     
     func patch<T: NetworkingJSONDecodable>(_ route: String,
@@ -56,7 +56,7 @@ public extension NetworkingClient {
                                            keypath: String? = nil) -> Single<T> {
         return patch(route, params: params)
             .map { json -> T in try NetworkingParser().toModel(json, keypath: keypath) }
-            .observeOn(MainScheduler.asyncInstance)
+            .observe(on: MainScheduler.asyncInstance)
     }
     
     func delete<T: NetworkingJSONDecodable>(_ route: String,
@@ -64,7 +64,7 @@ public extension NetworkingClient {
                                             keypath: String? = nil) -> Single<T> {
         return delete(route, params: params)
             .map { json -> T in try NetworkingParser().toModel(json, keypath: keypath) }
-            .observeOn(MainScheduler.asyncInstance)
+            .observe(on: MainScheduler.asyncInstance)
     }
 }
 
