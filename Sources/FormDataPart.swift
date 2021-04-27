@@ -41,6 +41,8 @@ public struct FormDataPart {
         body += "name=\"\(parameterName)\""
         if let filename = filename {
             body += "; filename=\"\(filename)\""
+        } else {
+            body += ";"
         }
         body += "\r\n"
         body += "Content-Type: \(type.contentType)\r\n\r\n"
